@@ -135,6 +135,23 @@ export function renderTide(view, spot) {
   return `<section class="card"><h2>潮・日の出</h2>${lines.join('')}</section>`;
 }
 
+const NOW_LINK_TEXT = { camera: 'カメラを見る', wind: '風の実況を見る', wave: '波の実測を見る' };
+
+// 現地の様子へのリンク。ページを開くだけで、ここでカメラの画像は表示しない(いまの様子だとは書かない)
+export function renderNow(spot) {
+  const links = Array.isArray(spot?.links) ? spot.links.filter((l) => l && typeof l.url === 'string') : [];
+  if (links.length === 0) return '';
+  const items = links
+    .map(
+      (l) =>
+        `<a class="button now-link" href="${e(l.url)}" target="_blank" rel="noopener noreferrer"><span class="now-title">${e(NOW_LINK_TEXT[l.kind] ?? 'リンクを開く')}</span><span class="now-sub">${e(l.label)} — ${e(l.provider)}(${e(l.note)})</span></a>`,
+    )
+    .join('\n');
+  return `<section class="card now"><h2>現地の様子</h2>
+<p class="muted">予報と実際の様子を見比べてください。リンク先は各提供元のページです。</p>
+${items}</section>`;
+}
+
 export function renderLinks(spot) {
   const maps = `https://maps.apple.com/?ll=${encodeURIComponent(`${spot.lat},${spot.lon}`)}&q=${encodeURIComponent(spot.name)}`;
   return `<section class="card links"><a class="button" href="${e(maps)}" target="_blank" rel="noopener">地図で開く(${e(spot.name)})</a>
@@ -190,7 +207,7 @@ export function renderNav(tab) {
 }
 
 export function renderFooter() {
-  return `<footer class="footer"><p>${e(ATTRIBUTION.weather)}</p><p>${e(ATTRIBUTION.tide)}</p><p>${e(ATTRIBUTION.waveNote)}</p></footer>`;
+  return `<footer class="footer"><p>${e(ATTRIBUTION.weather)}</p><p>${e(ATTRIBUTION.tide)}</p><p>${e(ATTRIBUTION.waveNote)}</p><p>${e(ATTRIBUTION.live)}</p></footer>`;
 }
 
 export function renderApp(model) {
@@ -210,6 +227,7 @@ export function renderApp(model) {
       renderHourStrip(view.stripHours ?? []),
       `<section class="card"><h2>時間ごと</h2>${renderHourly(view.dayHours)}</section>`,
       renderTide(view, spot),
+      renderNow(spot),
       renderLinks(spot),
     ].join('\n');
   }

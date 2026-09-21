@@ -74,3 +74,8 @@ input[type="text"] { font: inherit; width: 100%; padding: 10px; border: 2px soli
 .cell .arrow { display: inline-block; height: 1.2em; font-size: 0.85rem; font-weight: 700; }
 .legend { display: flex; flex-wrap: wrap; gap: 2px 12px; margin: 8px 0 0; }
 .legend span { white-space: nowrap; }
+
+/* 現地の様子(リンク) */
+.now .button { text-align: left; }
+.now-title { display: block; font-weight: 700; }
+.now-sub { display: block; font-size: 0.75rem; color: var(--unknown); line-height: 1.35; }

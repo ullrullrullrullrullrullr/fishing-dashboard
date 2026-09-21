@@ -32,4 +32,5 @@ export const ATTRIBUTION = {
   weather: '天気・波: Open-Meteo.com(CC BY 4.0)',
   tide: '潮汐・月齢: tide736.net',
   waveNote: '波は沖の予報値で、堤防際の波ではありません。',
+  live: '実況: 気象庁アメダス / 国土交通省港湾局 NOWPHAS',
 };

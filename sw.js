@@ -1,4 +1,4 @@
-const CACHE = 'fishing-dashboard-v3';
+const CACHE = 'fishing-dashboard-v5';
 const SHELL = [
   './',
   './index.html',
